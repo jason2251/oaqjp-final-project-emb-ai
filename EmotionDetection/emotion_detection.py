@@ -8,16 +8,30 @@ def emotion_detector(text_to_analyze):  # Define a function named emotion_detect
     
     # Send a POST request to the API with the text and headers
     response = requests.post(url, json=myobj, headers=header)
-    
     # Parsing the JSON response from the API
     formatted_response = json.loads(response.text)
+
+    # If the response status code is 200, extract the label and score from the response
+    if response.status_code == 200:
+
+        # Extracting emotion and score from the response
+        emotion_data = formatted_response['emotionPredictions'][0]['emotion']
+        # Finding the dominant emotion
+        dominant_emotion = max(emotion_data, key=emotion_data.get)
     
-    # Extracting emotion and score from the response
-    emotion_data = formatted_response['emotionPredictions'][0]['emotion']
-    
-    # Finding the dominant emotion
-    dominant_emotion = max(emotion_data, key=emotion_data.get)
-    
+    # If the response status code is 500, make the function return values for all keys being None
+    elif response.status_code == 500:
+        emotion_data = {
+            'anger': 'None', 
+            'disgust': 'None', 
+            'fear': 'None', 
+            'joy': 'None', 
+            'sadness': 'None'    
+        }
+        dominant_emotion = 'None'
+        
+
+
     # Returning a dictionary containing sentiment analysis results
     return {
         'anger': emotion_data['anger'],
