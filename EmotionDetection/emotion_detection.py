@@ -19,8 +19,8 @@ def emotion_detector(text_to_analyze):  # Define a function named emotion_detect
         # Finding the dominant emotion
         dominant_emotion = max(emotion_data, key=emotion_data.get)
     
-    # If the response status code is 500, make the function return values for all keys being None
-    elif response.status_code == 500:
+    # If the response status code is 400, make the function return values for all keys being None
+    elif response.status_code == 400:
         emotion_data = {
             'anger': 'None', 
             'disgust': 'None', 
@@ -28,7 +28,7 @@ def emotion_detector(text_to_analyze):  # Define a function named emotion_detect
             'joy': 'None', 
             'sadness': 'None'    
         }
-        dominant_emotion = 'None'
+        dominant_emotion = None
         
 
 
