@@ -22,8 +22,10 @@ def sent_analyzer():
 
     # Return a formatted string with all emotions and their scores, and the dominant emotion
     return (
-        f"Emotion scores: {emotion_scores}. "
-        f"The dominant emotion is {dominant_emotion} with a score of {emotion_scores[dominant_emotion]:.4f}."
+        f"For the given statement, the system response is 'anger': {emotion_scores['anger']:.9f}, "
+        f"'disgust': {emotion_scores['disgust']:.9f}, 'fear': {emotion_scores['fear']:.9f}, "
+        f"'joy': {emotion_scores['joy']:.7f} and 'sadness': {emotion_scores['sadness']:.9f}. "
+        f"The dominant emotion is **{dominant_emotion}**."  
     )
 
 @app.route("/")
